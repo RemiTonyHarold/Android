@@ -9,4 +9,5 @@ public class ApiHelper {
     public static final String AUTH_ENDPOINT = "auth";
     public static final String CATEGORIES_ENDPOINT = "categories";
     public static final String SOURCE_ENDPOINT = "feedSource";
+    public static final String NEWS_ENDPOINT = "news";
 }

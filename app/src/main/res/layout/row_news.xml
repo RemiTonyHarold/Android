@@ -1,23 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/colorElements"
     >
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Sciences"
-        android:textColor="@color/colorTitle"
-        android:textStyle="bold"
-        android:textSize="16sp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginEnd="10dp"
-        android:id="@+id/tvName"
-        android:gravity="center"
         android:background="@drawable/row_background"
-        />
+        android:padding="5dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sciences"
+            android:textColor="@color/colorTitle"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:lines="1"
+            android:layout_toStartOf="@+id/tvDate"
+            android:id="@+id/tvTitle"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Il y a 5mn"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/tvDate"
+            android:textSize="12sp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
+            android:textSize="12sp"
+            android:ellipsize="end"
+            android:textColor="@color/colorText"
+            android:id="@+id/tvDescription"
+            android:lines="2"
+            android:maxLines="2"
+            android:text="WASHINGTON        (AP) -- A next step for smart watches and fitness trackers? Wearable gadgets gave a Stanford University professor an early warning that he was getting sick before he ever felt any symptoms of Lyme disease...."/>
+    </RelativeLayout>
 </RelativeLayout>

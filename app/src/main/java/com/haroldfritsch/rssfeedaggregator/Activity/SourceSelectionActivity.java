@@ -1,5 +1,6 @@
 package com.haroldfritsch.rssfeedaggregator.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -59,5 +60,8 @@ public class SourceSelectionActivity extends AppCompatActivity implements Adapte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(this, adapter.getItem(position).getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, NewsListActivity.class);
+        intent.putExtra("sourceId", adapter.getItem(position).getId());
+        startActivity(intent);
     }
 }
