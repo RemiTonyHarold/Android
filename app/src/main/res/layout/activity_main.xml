@@ -4,11 +4,15 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.haroldfritsch.rssfeedaggregator.MainActivity">
+    android:background="@color/colorElements"
+    tools:context="com.haroldfritsch.rssfeedaggregator.Activity.MainActivity">
 
 <ListView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/lvNews"
-    ></ListView>
+    android:id="@+id/lvCategories"
+    tools:listitem="@layout/row_categories"
+    android:divider="@null"
+    android:dividerHeight="0dp"
+    />
 </RelativeLayout>
