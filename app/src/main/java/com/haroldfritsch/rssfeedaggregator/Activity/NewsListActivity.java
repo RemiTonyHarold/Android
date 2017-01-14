@@ -61,8 +61,12 @@ public class NewsListActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, NewsDisplayActivity.class);
-        intent.putExtra("newsUrl", adapter.getItem(position).getLink());
-        startActivity(intent);
+        News news = adapter.getItem(position);
+        if (news != null) {
+            Intent intent = new Intent(this, NewsDisplayActivity.class);
+            intent.putExtra("newsUrl", news.getLink());
+            intent.putExtra("newsName", news.getTitle());
+            startActivity(intent);
+        }
     }
 }
