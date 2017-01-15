@@ -45,11 +45,11 @@ public class NewsAdapter extends ArrayAdapter<News> {
         if (news != null) {
             holder.tvTitle.setText(news.getTitle());
             holder.tvDescription.setText(news.getDescription());
-            long now = System.currentTimeMillis();
+/*            long now = System.currentTimeMillis();
             holder.tvDate.setText(DateUtils.getRelativeTimeSpanString(
                     Long.parseLong(news.getDateCreation()),
                     now,
-                    DateUtils.FORMAT_ABBREV_RELATIVE));
+                    DateUtils.FORMAT_ABBREV_RELATIVE));*/
         }
 
         return convertView;

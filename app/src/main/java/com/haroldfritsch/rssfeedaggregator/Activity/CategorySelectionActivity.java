@@ -1,5 +1,6 @@
 package com.haroldfritsch.rssfeedaggregator.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,11 +19,18 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class CategorySelectionActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ListView lvCategories;
     private List<Category> categories;
     private CategoryAdapter adapter;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

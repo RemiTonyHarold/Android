@@ -1,5 +1,6 @@
 package com.haroldfritsch.rssfeedaggregator.Activity;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,9 +10,16 @@ import android.webkit.WebView;
 
 import com.haroldfritsch.rssfeedaggregator.R;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class NewsDisplayActivity extends AppCompatActivity {
 
     private WebView webView;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
