@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_source_selection"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorElements"
-    tools:context="com.haroldfritsch.rssfeedaggregator.Activity.SourceSelectionActivity">
+    android:orientation="vertical"
+    android:animateLayoutChanges="true"
+    tools:context="com.haroldfritsch.rssfeedaggregator.Activity.NewsListActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llFilters"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="5"
+            android:text="Catégorie"
+            android:id="@+id/btnFilterCategory"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:textAllCaps="false"
+            />
+<!--            android:background="#00FFFFFF"-->
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="5"
+            android:textAllCaps="false"
+            android:id="@+id/btnFilterSource"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:text="Source"
+            />
+    </LinearLayout>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,4 +46,4 @@
         android:divider="@null"
         android:dividerHeight="0dp"
         />
-</RelativeLayout>
+</LinearLayout>

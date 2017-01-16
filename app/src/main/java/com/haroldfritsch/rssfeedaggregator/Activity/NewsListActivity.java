@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,7 +35,10 @@ public class NewsListActivity extends AppCompatActivity implements AdapterView.O
     private ListView lvNews;
     private List<News> newses;
     private NewsAdapter adapter;
+    private LinearLayout llfilters;
     private String selectedSourceId = null;
+
+    private boolean filtersShown = false;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -44,8 +48,9 @@ public class NewsListActivity extends AppCompatActivity implements AdapterView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_source_selection);
-        lvNews = (ListView)findViewById(R.id.lvSources);
+        setContentView(R.layout.activity_news_list);
+        llfilters = (LinearLayout)findViewById(R.id.llFilters);
+        lvNews = (ListView)findViewById(R.id.lvNews);
         adapter = new NewsAdapter(this, R.layout.row_news);
         lvNews.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -81,6 +86,8 @@ public class NewsListActivity extends AppCompatActivity implements AdapterView.O
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.filter:
+                llfilters.setVisibility(filtersShown?View.GONE:View.VISIBLE);
+                filtersShown = !filtersShown;
                 break;
         }
         return super.onOptionsItemSelected(item);
