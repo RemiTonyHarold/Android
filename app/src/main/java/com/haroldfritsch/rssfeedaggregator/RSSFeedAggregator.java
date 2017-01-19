@@ -2,6 +2,7 @@ package com.haroldfritsch.rssfeedaggregator;
 
 import android.app.Application;
 
+import io.realm.Realm;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -12,6 +13,7 @@ public class RSSFeedAggregator extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Realm.init(this);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("GT-Walsheim-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)

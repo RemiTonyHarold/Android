@@ -2,12 +2,16 @@ package com.haroldfritsch.rssfeedaggregator.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by fritsc_h on 14/01/2017.
  */
 
-public class Source {
+public class Source extends RealmObject {
     private String categoryId;
+    @PrimaryKey
     private String id;
     private String name;
     private String url;

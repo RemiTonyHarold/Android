@@ -9,9 +9,6 @@
         android:supportsRtl="true"
         android:name=".RSSFeedAggregator"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.CategorySelectionActivity">
-        </activity>
-        <activity android:name=".Activity.SourceSelectionActivity" />
         <activity android:name=".Activity.NewsListActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

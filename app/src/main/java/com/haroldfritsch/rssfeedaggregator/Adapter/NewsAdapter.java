@@ -1,6 +1,7 @@
 package com.haroldfritsch.rssfeedaggregator.Adapter;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -26,15 +27,19 @@ import java.util.Locale;
  */
 
 public class NewsAdapter extends ArrayAdapter<News> {
+
+    @LayoutRes int resource;
+
     public NewsAdapter(Context context, int resource) {
         super(context, resource);
+        this.resource = resource;
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_news, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(resource, parent, false);
         }
         NewsHolder holder = (NewsHolder) convertView.getTag();
         if (holder == null) {
@@ -51,23 +56,12 @@ public class NewsAdapter extends ArrayAdapter<News> {
             holder.tvDescription.setText(news.getDescription());
             long now = System.currentTimeMillis();
             holder.tvDate.setText(DateUtils.getRelativeTimeSpanString(
-                    getDateFormatted(news.getPubDate()).getTime(),
+                    news.getParsedPubDate().getTime(),
                     now,
                     DateUtils.FORMAT_ABBREV_RELATIVE));
         }
 
         return convertView;
-    }
-
-    private Date getDateFormatted(String rawDate) {
-        //Sat, 14 Jan 2017 13:19:53 GMT
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
-        try {
-            return simpleDateFormat.parse(rawDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return new Date();
     }
 
     private class NewsHolder {

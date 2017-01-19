@@ -1,10 +1,14 @@
 package com.haroldfritsch.rssfeedaggregator.Model;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by fritsc_h on 14/01/2017.
  */
 
-public class Category {
+public class Category extends RealmObject {
+    @PrimaryKey
     private String id;
     private String name;
 
