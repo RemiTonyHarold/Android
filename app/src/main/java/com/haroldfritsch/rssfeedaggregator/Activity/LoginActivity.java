@@ -22,20 +22,15 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private boolean isLoginShowed = false;
-    private boolean isRegisterShowed = false;
-
-    private LinearLayout llRoot;
-
     private Button btnLogin;
-    private EditText etEmail;
-    private EditText etPassword;
+    private EditText etLoginEmail;
+    private EditText etLoginPassword;
     private LinearLayout llLogin;
     private LinearLayout llLoginFields;
 
     private Button btnRegister;
-    private EditText etLoginEmail;
-    private EditText etLoginPassword;
+    private EditText etRegisterEmail;
+    private EditText etRegisterPassword;
     private LinearLayout llRegister;
     private LinearLayout llRegisterFields;
 
@@ -51,14 +46,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-        llRoot = (LinearLayout) findViewById(R.id.activity_login);
         llLogin = (LinearLayout) findViewById(R.id.llLogin);
         llLogin.setOnClickListener(this);
         llLoginFields = (LinearLayout) findViewById(R.id.llLoginFields);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
-        etEmail = (EditText) findViewById(R.id.etEmail);
-        etPassword = (EditText) findViewById(R.id.etPassword);
+        etRegisterEmail = (EditText) findViewById(R.id.etEmail);
+        etRegisterPassword = (EditText) findViewById(R.id.etPassword);
 
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(this);
@@ -128,8 +122,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void deployLogin() {
-        isLoginShowed = true;
-        isRegisterShowed = false;
         llRegisterFields.setVisibility(View.GONE);
         llLoginFields.setVisibility(View.VISIBLE);
     }
@@ -141,28 +133,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void deployRegister() {
-        isLoginShowed = false;
-        isRegisterShowed = true;
         llRegisterFields.setVisibility(View.VISIBLE);
         llLoginFields.setVisibility(View.GONE);
     }
 
     private boolean isRegisterFormValid() {
-        etEmail.setError(null);
-        etPassword.setError(null);
+        etRegisterEmail.setError(null);
+        etRegisterPassword.setError(null);
 
-        if (!isValidEmail(etEmail.getText().toString())) {
-            etEmail.setError(getString(R.string.error_email_invalid));
+        if (!isValidEmail(etRegisterEmail.getText().toString())) {
+            etRegisterEmail.setError(getString(R.string.error_email_invalid));
             return false;
         }
-        if (etPassword.length() < 6) {
-            etPassword.setError(getString(R.string.error_password_length));
+        if (etRegisterPassword.length() < 6) {
+            etRegisterPassword.setError(getString(R.string.error_password_length));
             return false;
         }
         return true;
     }
 
     private void registerUser() {
-
+        Ion.with(this).load(ApiHelper.BASE_URL + ApiHelper.REGISTER_ENDPOINT)
+                .setBodyParameter("email", etRegisterEmail.getText().toString())
+                .setBodyParameter("password", etRegisterPassword.getText().toString())
+                .as(new TypeToken<RegisterResponse>(){})
+                .setCallback(new FutureCallback<RegisterResponse>() {
+                    @Override
+                    public void onCompleted(Exception e, RegisterResponse result) {
+                        if (e != null) {
+                            e.printStackTrace();
+                            return;
+                        }
+                        if (result.getError() != null) {
+                            Toast.makeText(LoginActivity.this, result.getError(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Toast.makeText(LoginActivity.this, "user:"+result.getUser().getEmail(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
