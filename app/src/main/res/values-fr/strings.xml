@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">RSS Feed Aggregator</string>
     <string name="back">Retour</string>
+    <string name="error_email_invalid">Adresse email invalide</string>
+    <string name="error_password_length">Minimum 6 caractères</string>
+    <string name="error_password_invalid">Mot de passe invalide</string>
 </resources>

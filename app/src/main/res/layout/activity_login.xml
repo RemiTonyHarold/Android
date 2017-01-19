@@ -95,6 +95,7 @@
             android:textColor="@color/colorPrimary"
             android:background="@drawable/row_background_gold_button"
             android:textAllCaps="false"
+            android:id="@+id/btnRegister"
             />
 
         <LinearLayout
@@ -217,6 +218,7 @@
             android:layout_height="40dp"
             android:layout_margin="10dp"
             android:text="Connexion"
+            android:id="@+id/btnLogin"
             android:textColor="@color/colorPrimary"
             android:background="@drawable/row_background_gold_button"
             android:textAllCaps="false"
@@ -258,6 +260,7 @@
             android:textColor="@color/colorPrimary"
             android:background="@drawable/row_background_blue_button"
             android:textAllCaps="false"
+            android:id="@+id/btnFacebookLogin"
             />
     </LinearLayout>
 </LinearLayout>

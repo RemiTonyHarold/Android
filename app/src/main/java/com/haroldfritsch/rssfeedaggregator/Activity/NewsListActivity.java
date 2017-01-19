@@ -58,7 +58,7 @@ public class NewsListActivity extends AppCompatActivity implements AdapterView.O
         lvNews.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         lvNews.setOnItemClickListener(this);
-        newses = realm.where(News.class).findAll().sort("parsedPubDate", Sort.DESCENDING);
+        newses = realm.where(News.class).findAll().sort("pubDate", Sort.DESCENDING);
         adapter.addAll(newses);
         updateNews();
         downloadCategories();
@@ -78,7 +78,7 @@ public class NewsListActivity extends AppCompatActivity implements AdapterView.O
                             @Override
                             public void execute(Realm realm) {
                                 realm.copyToRealmOrUpdate(result);
-                                newses = realm.where(News.class).findAll().sort("parsedPubDate", Sort.DESCENDING);
+                                newses = realm.where(News.class).findAll().sort("pubDate", Sort.DESCENDING);
                                 adapter.clear();
                                 adapter.addAll(newses);
                                 adapter.notifyDataSetChanged();
@@ -156,7 +156,7 @@ public class NewsListActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(DialogInterface dialog, int which) {
                 Log.e("filter", categories.get(which).getId());
                 newses = realm.where(News.class).equalTo("categoryId", categories.get(which).getId())
-                        .findAll().sort("parsedPubDate", Sort.DESCENDING);
+                        .findAll().sort("pubDate", Sort.DESCENDING);
                 Toast.makeText(NewsListActivity.this, "count" + newses.size(), Toast.LENGTH_SHORT).show();
                 adapter.clear();
                 adapter.addAll(newses);

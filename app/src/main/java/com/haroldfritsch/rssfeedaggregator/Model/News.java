@@ -23,10 +23,7 @@ public class News extends RealmObject {
     private String id;
     private String categoryId;
     private String link;
-    @SerializedName("tata")
-    private String pubDate;
-    @SerializedName("pubDate")
-    private Date parsedPubDate;
+    private Date pubDate;
     private String sourceId;
     private String thumbnail;
     private String title;
@@ -79,40 +76,13 @@ public class News extends RealmObject {
         this.link = link;
     }
 
-    public String getPubDate() {
+    public Date getPubDate() {
         return pubDate;
     }
 
-/*    public void setPubDate(String pubDate) {
-        this.pubDate = getDateFormatted(pubDate);
-    }*/
-
-    public Date getParsedPubDate() {
-        if (parsedPubDate != null) {
-            return parsedPubDate;
-        } else if (pubDate != null) {
-            return getDateFormatted(pubDate);
-        } else {
-            return new Date();
-        }
-    }
-
-    public void setPubDate(String pubDate) {
+    public void setPubDate(Date pubDate) {
         this.pubDate = pubDate;
-        this.parsedPubDate = getDateFormatted(pubDate);
     }
-
-    private Date getDateFormatted(String rawDate) {
-        //Sat, 14 Jan 2017 13:19:53 GMT
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
-        try {
-            return simpleDateFormat.parse(rawDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return new Date();
-    }
-
     public String getSourceId() {
         return sourceId;
     }

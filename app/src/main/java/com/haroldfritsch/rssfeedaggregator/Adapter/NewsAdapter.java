@@ -56,7 +56,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
             holder.tvDescription.setText(news.getDescription());
             long now = System.currentTimeMillis();
             holder.tvDate.setText(DateUtils.getRelativeTimeSpanString(
-                    news.getParsedPubDate().getTime(),
+                    news.getPubDate().getTime(),
                     now,
                     DateUtils.FORMAT_ABBREV_RELATIVE));
         }
