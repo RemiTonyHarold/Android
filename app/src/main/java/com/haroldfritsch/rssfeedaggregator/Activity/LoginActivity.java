@@ -1,20 +1,22 @@
 package com.haroldfritsch.rssfeedaggregator.Activity;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
+import com.haroldfritsch.rssfeedaggregator.Model.RegisterResponse;
+import com.haroldfritsch.rssfeedaggregator.Model.Token;
 import com.haroldfritsch.rssfeedaggregator.R;
+import com.haroldfritsch.rssfeedaggregator.Services.ApiHelper;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -105,7 +107,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void logUserIn() {
-
+        Ion.with(this).load(ApiHelper.BASE_URL + ApiHelper.AUTH_ENDPOINT)
+                .setBodyParameter("email", etLoginEmail.getText().toString())
+                .setBodyParameter("password", etLoginPassword.getText().toString())
+                .as(new TypeToken<Token>(){})
+                .setCallback(new FutureCallback<Token>() {
+                    @Override
+                    public void onCompleted(Exception e, Token result) {
+                        if (e != null) {
+                            e.printStackTrace();
+                            return;
+                        }
+                        if (result.getError() != null) {
+                            Toast.makeText(LoginActivity.this, result.getError(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Toast.makeText(LoginActivity.this, "user:"+result.getAccessToken(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void deployLogin() {
