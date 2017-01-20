@@ -3,6 +3,7 @@ package com.haroldfritsch.rssfeedaggregator.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +23,12 @@ import com.haroldfritsch.rssfeedaggregator.Model.Category;
 import com.haroldfritsch.rssfeedaggregator.Model.News;
 import com.haroldfritsch.rssfeedaggregator.R;
 import com.haroldfritsch.rssfeedaggregator.Services.ApiHelper;
+import com.haroldfritsch.rssfeedaggregator.Services.TokenHelper;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
@@ -65,27 +68,67 @@ public class NewsListActivity extends AppCompatActivity implements AdapterView.O
     }
 
     private void updateNews() {
-        Ion.with(this).load(ApiHelper.BASE_URL + ApiHelper.NEWS_ENDPOINT)
-                .as(new TypeToken<List<News>>(){})
-                .setCallback(new FutureCallback<List<News>>() {
-                    @Override
-                    public void onCompleted(Exception e, final List<News> result) {
-                        if (e != null) {
-                            e.printStackTrace();
-                            return;
-                        }
-                        realm.executeTransaction(new Realm.Transaction() {
-                            @Override
-                            public void execute(Realm realm) {
-                                realm.copyToRealmOrUpdate(result);
-                                newses = realm.where(News.class).findAll().sort("pubDate", Sort.DESCENDING);
-                                adapter.clear();
-                                adapter.addAll(newses);
-                                adapter.notifyDataSetChanged();
+        final Long lastFetchTimestamp = getSharedPreferences("rssfeed", MODE_PRIVATE).getLong("lastFetchTimestamp", 0);
+        if (TokenHelper.getInstance().isUserLoggedIn(this)) {
+            Toast.makeText(this, "Utilisateur connecté", Toast.LENGTH_SHORT).show();
+            Ion.with(this).load(
+                    ApiHelper.BASE_URL + ApiHelper.NEWS_ENDPOINT
+                            + "?timestamp=" + Long.toString(lastFetchTimestamp))
+                    .addHeader("RSS-TOKEN", TokenHelper.getInstance().getToken(this).getAccessToken())
+                    .as(new TypeToken<List<News>>(){})
+                    .setCallback(new FutureCallback<List<News>>() {
+                        @Override
+                        public void onCompleted(Exception e, final List<News> result) {
+                            if (e != null) {
+                                e.printStackTrace();
+                                return;
                             }
-                        });
-                    }
-                });
+                            updateLastFetchTimestamp();
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    realm.copyToRealmOrUpdate(result);
+                                    newses = realm.where(News.class).findAll().sort("pubDate", Sort.DESCENDING);
+                                    adapter.clear();
+                                    adapter.addAll(newses);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "Utilisateur non connecté", Toast.LENGTH_SHORT).show();
+            Ion.with(this).load(ApiHelper.BASE_URL + ApiHelper.NEWS_ENDPOINT
+                    + "?timestamp=" + Long.toString(lastFetchTimestamp))
+                    .as(new TypeToken<List<News>>(){})
+                    .setCallback(new FutureCallback<List<News>>() {
+                        @Override
+                        public void onCompleted(Exception e, final List<News> result) {
+                            if (e != null) {
+                                e.printStackTrace();
+                                return;
+                            }
+                            updateLastFetchTimestamp();
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    realm.copyToRealmOrUpdate(result);
+                                    newses = realm.where(News.class).findAll().sort("pubDate", Sort.DESCENDING);
+                                    adapter.clear();
+                                    adapter.addAll(newses);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    });
+        }
+    }
+
+    private void updateLastFetchTimestamp() {
+        long timestamp = new Date().getTime();
+        SharedPreferences.Editor editor = getSharedPreferences("rssfeed", MODE_PRIVATE).edit();
+        editor.putLong("lastFetchTimestamp", timestamp);
+        editor.apply();
     }
 
     private void downloadCategories() {

@@ -1,6 +1,7 @@
 package com.haroldfritsch.rssfeedaggregator.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -15,6 +16,7 @@ import com.haroldfritsch.rssfeedaggregator.Model.RegisterResponse;
 import com.haroldfritsch.rssfeedaggregator.Model.Token;
 import com.haroldfritsch.rssfeedaggregator.R;
 import com.haroldfritsch.rssfeedaggregator.Services.ApiHelper;
+import com.haroldfritsch.rssfeedaggregator.Services.TokenHelper;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -45,6 +47,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
+        }
+        if (TokenHelper.getInstance().isUserLoggedIn(this)) {
+            loadManageCustomFeedsActivity();
         }
         llLogin = (LinearLayout) findViewById(R.id.llLogin);
         llLogin.setOnClickListener(this);
@@ -85,6 +90,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    private void loadManageCustomFeedsActivity() {
+        Intent intent = new Intent(LoginActivity.this, ManageCustomFeedsActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private boolean isLoginFormValid() {
         etLoginEmail.setError(null);
         etLoginPassword.setError(null);
@@ -116,7 +127,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(LoginActivity.this, result.getError(), Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        Toast.makeText(LoginActivity.this, "user:"+result.getAccessToken(), Toast.LENGTH_SHORT).show();
+                        TokenHelper.getInstance().saveToken(LoginActivity.this, result);
+                        loadManageCustomFeedsActivity();
                     }
                 });
     }
@@ -168,7 +180,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(LoginActivity.this, result.getError(), Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        Toast.makeText(LoginActivity.this, "user:"+result.getUser().getEmail(), Toast.LENGTH_SHORT).show();
+                        TokenHelper.getInstance().saveToken(LoginActivity.this, result.getToken());
+                        loadManageCustomFeedsActivity();
                     }
                 });
     }
