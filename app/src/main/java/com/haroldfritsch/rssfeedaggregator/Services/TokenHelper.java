@@ -30,6 +30,13 @@ public class TokenHelper {
         }
     }
 
+    public void logout(Context context) {
+        SharedPreferences.Editor editor = context.getSharedPreferences("rssfeed", Context.MODE_PRIVATE).edit();
+        editor.remove("token");
+        editor.apply();
+        this.token = null;
+    }
+
     public Token getToken(Context context) {
         if (this.token == null) {
             loadTokenFromPreferences(context);

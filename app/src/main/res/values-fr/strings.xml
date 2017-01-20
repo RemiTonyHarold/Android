@@ -5,4 +5,12 @@
     <string name="error_email_invalid">Adresse email invalide</string>
     <string name="error_password_length">Minimum 6 caractères</string>
     <string name="error_password_invalid">Mot de passe invalide</string>
+    <string name="login">Connexion</string>
+    <string name="logout">Déconnexion</string>
+    <string name="password">Mot de passe</string>
+    <string name="register">Inscription</string>
+    <string name="email">Email</string>
+    <string name="chooseACategory">Choisissez une catégorie</string>
+    <string name="hintRssFlux">URL du flux RSS</string>
+    <string name="addFeedTitleDialog">Ajout d\'un flux RSS</string>
 </resources>

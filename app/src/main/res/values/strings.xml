@@ -4,4 +4,12 @@
     <string name="error_email_invalid">Invalid email address</string>
     <string name="error_password_length">6 characters minimum</string>
     <string name="error_password_invalid">Invalid password</string>
+    <string name="logout">Log out</string>
+    <string name="login">Log in</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="chooseACategory">Choose a category</string>
+    <string name="hintRssFlux">RSS flux URL</string>
+    <string name="addFeedTitleDialog">Add a custom feed</string>
 </resources>

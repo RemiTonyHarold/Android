@@ -94,6 +94,7 @@ public class NewsListActivity extends AppCompatActivity implements AdapterView.O
                                     adapter.notifyDataSetChanged();
                                 }
                             });
+                            Toast.makeText(NewsListActivity.this, "Vous êtes à jour avec les dernières actualités.", Toast.LENGTH_SHORT).show();
                         }
                     });
         } else {

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hintRssFlux"
+        android:textSize="15sp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="http://www.comptoir-hardware.com/home.xml"
+        android:lines="1"
+        android:id="@+id/etFlux"
+        android:maxLines="1"
+        android:textColorHint="@color/colorText"
+        android:inputType="textUri"
+        android:textSize="15sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/chooseACategory"
+        android:textSize="15sp"
+        />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/lvCategories"
+        tools:listitem="@layout/row_categories"
+        />
+
+</LinearLayout>
