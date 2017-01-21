@@ -13,4 +13,8 @@
     <string name="chooseACategory">Choisissez une catégorie</string>
     <string name="hintRssFlux">URL du flux RSS</string>
     <string name="addFeedTitleDialog">Ajout d\'un flux RSS</string>
+    <string name="deleteFeed">Êtes-vous sûr de vouloir supprimer cette source ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="cancel">Annuler</string>
 </resources>

@@ -17,10 +17,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Api;
 import com.google.gson.reflect.TypeToken;
 import com.haroldfritsch.rssfeedaggregator.Adapter.CategoryAdapter;
+import com.haroldfritsch.rssfeedaggregator.Adapter.SourceAdapter;
 import com.haroldfritsch.rssfeedaggregator.Model.Category;
 import com.haroldfritsch.rssfeedaggregator.Model.Source;
+import com.haroldfritsch.rssfeedaggregator.Model.Token;
 import com.haroldfritsch.rssfeedaggregator.R;
 import com.haroldfritsch.rssfeedaggregator.Services.ApiHelper;
 import com.haroldfritsch.rssfeedaggregator.Services.TokenHelper;
@@ -32,8 +35,10 @@ import java.util.List;
 import io.realm.Realm;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ManageCustomFeedsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ManageCustomFeedsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemLongClickListener {
 
+    private SourceAdapter adapter;
+    private ListView lvFeeds;
     private FloatingActionButton fab;
 
     @Override
@@ -47,6 +52,25 @@ public class ManageCustomFeedsActivity extends AppCompatActivity implements View
         setContentView(R.layout.activity_manage_custom_feeds);
         fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(this);
+        lvFeeds = (ListView)findViewById(R.id.lvFeeds);
+        lvFeeds.setOnItemLongClickListener(this);
+        adapter = new SourceAdapter(this, R.layout.row_sources);
+        lvFeeds.setAdapter(adapter);
+        Ion.with(this)
+                .load(ApiHelper.BASE_URL + ApiHelper.USER_FEED_ENDPOINT)
+                .setHeader("RSS-TOKEN", TokenHelper.getInstance().getToken(this).getAccessToken())
+                .as(new TypeToken<List<Source>>(){})
+                .setCallback(new FutureCallback<List<Source>>() {
+                    @Override
+                    public void onCompleted(Exception e, List<Source> result) {
+                        if (e != null) {
+                            e.printStackTrace();
+                        } else {
+                            adapter.addAll(result);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -152,11 +176,49 @@ public class ManageCustomFeedsActivity extends AppCompatActivity implements View
                                 public void execute(Realm realm) {
                                     realm.copyToRealm(result);
                                     Toast.makeText(ManageCustomFeedsActivity.this, "Feed RSS ajouté !", Toast.LENGTH_LONG).show();
+                                    adapter.add(result);
+                                    adapter.notifyDataSetChanged();
                                 }
                             });
                         }
 
                     }
                 });
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        askDeleteConfirmation(adapter.getItem(position));
+        return false;
+    }
+
+    private void askDeleteConfirmation(final Source source) {
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Attention")
+                .setMessage(R.string.deleteFeed)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(ManageCustomFeedsActivity.this, "supprimer", Toast.LENGTH_SHORT).show();
+                        Ion.with(ManageCustomFeedsActivity.this)
+                                .load("DELETE", ApiHelper.BASE_URL + ApiHelper.USER_FEED_ENDPOINT + "/" + source.getId())
+                                .setHeader("RSS-TOKEN", TokenHelper.getInstance().getToken(ManageCustomFeedsActivity.this).getAccessToken())
+                                .asString()
+                                .setCallback(new FutureCallback<String>() {
+                                    @Override
+                                    public void onCompleted(Exception e, String result) {
+                                        if (e != null) {
+                                            e.printStackTrace();
+                                        } else {
+                                            adapter.remove(source);
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    }
+                                });
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .create();
+        dialog.show();
     }
 }

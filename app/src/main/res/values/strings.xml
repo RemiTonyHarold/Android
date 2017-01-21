@@ -12,4 +12,8 @@
     <string name="chooseACategory">Choose a category</string>
     <string name="hintRssFlux">RSS flux URL</string>
     <string name="addFeedTitleDialog">Add a custom feed</string>
+    <string name="deleteFeed">You are going to remove this source. Are you sure ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
 </resources>
