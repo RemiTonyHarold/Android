@@ -109,22 +109,21 @@ public class ManageCustomFeedsActivity extends AppCompatActivity implements View
     private void displaySecondDialog(final String feedUrl) {
         View view = getLayoutInflater().inflate(R.layout.alert_dialog_add_feed_part2, null);
         final ListView lvCategories = (ListView)view.findViewById(R.id.lvCategories);
-        Category selectedCategory = null;
         final CategoryAdapter adapter = new CategoryAdapter(this, R.layout.row_categories);
         adapter.addAll(Realm.getDefaultInstance().where(Category.class).findAll());
+        final AlertDialog alert = new AlertDialog.Builder(this)
+                .setTitle(R.string.chooseACategory)
+                .setView(view)
+                .create();
         lvCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 createFeed(feedUrl, adapter.getItem(position));
-                Toast.makeText(ManageCustomFeedsActivity.this, "choosed" + position, Toast.LENGTH_SHORT).show();
+                alert.dismiss();
             }
         });
         lvCategories.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        AlertDialog alert = new AlertDialog.Builder(this)
-                .setTitle(R.string.chooseACategory)
-                .setView(view)
-                .create();
+           adapter.notifyDataSetChanged();
         alert.show();
     }
 
