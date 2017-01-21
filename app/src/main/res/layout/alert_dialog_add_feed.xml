@@ -22,17 +22,4 @@
         android:inputType="textUri"
         android:textSize="15sp"
         />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/chooseACategory"
-        android:textSize="15sp"
-        />
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:id="@+id/lvCategories"
-        tools:listitem="@layout/row_categories"
-        />
-
 </LinearLayout>

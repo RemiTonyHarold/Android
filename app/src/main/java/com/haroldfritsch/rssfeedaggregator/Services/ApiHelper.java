@@ -11,6 +11,8 @@ public class ApiHelper {
     public static final String REFRESH_AUTH_ENDPOINT = "accessToken";
     public static final String REGISTER_ENDPOINT = "signup";
 
+    public static final String USER_FEED_ENDPOINT = "userFeedSource";
+
     public static final String CATEGORIES_ENDPOINT = "categories";
     public static final String NEWS_ENDPOINT = "news";
 }
