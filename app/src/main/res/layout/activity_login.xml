@@ -97,45 +97,6 @@
             android:textAllCaps="false"
             android:id="@+id/btnRegister"
             />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            >
-            <View
-                android:layout_width="0dp"
-                android:layout_margin="10dp"
-                android:layout_height="1px"
-                android:background="@color/colorTitle"
-                android:layout_weight="5"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ou"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:textColor="@color/colorPrimary"
-                />
-            <View
-                android:layout_width="0dp"
-                android:layout_margin="10dp"
-                android:layout_height="1px"
-                android:background="@color/colorTitle"
-                android:layout_weight="5"
-                />
-        </LinearLayout>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:text="Connexion avec Facebook"
-            android:textColor="@color/colorPrimary"
-            android:background="@drawable/row_background_blue_button"
-            android:textAllCaps="false"
-            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -175,44 +136,44 @@
         android:id="@+id/llLoginFields"
         >
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
-        android:background="@drawable/row_background_white_field"
-        >
-        <EditText
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/etLoginEmail"
-            android:layout_marginStart="5dp"
-            android:gravity="center_vertical"
-            android:hint="Email"
-            android:textSize="16sp"
-            android:background="#00000000"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/colorText"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorText"
-            android:layout_weight="5"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#00000000"
-            android:id="@+id/etLoginPassword"
-            android:layout_marginStart="5dp"
-            android:textSize="16sp"
-            android:gravity="center_vertical"
-            android:hint="Mot de passe"
-            android:inputType="textPassword"
-            android:textColorHint="@color/colorText"
-            />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:background="@drawable/row_background_white_field"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/etLoginEmail"
+                android:layout_marginStart="5dp"
+                android:gravity="center_vertical"
+                android:hint="Email"
+                android:textSize="16sp"
+                android:background="#00000000"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/colorText"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorText"
+                android:layout_weight="5"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#00000000"
+                android:id="@+id/etLoginPassword"
+                android:layout_marginStart="5dp"
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+                android:hint="Mot de passe"
+                android:inputType="textPassword"
+                android:textColorHint="@color/colorText"
+                />
 
-    </LinearLayout>
+        </LinearLayout>
         <Button
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -223,44 +184,6 @@
             android:background="@drawable/row_background_gold_button"
             android:textAllCaps="false"
             />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            >
-            <View
-                android:layout_width="0dp"
-                android:layout_margin="10dp"
-                android:layout_height="1px"
-                android:background="@color/colorText"
-                android:layout_weight="5"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ou"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:textColor="@color/colorText"
-                />
-            <View
-                android:layout_width="0dp"
-                android:layout_margin="10dp"
-                android:layout_height="1px"
-                android:background="@color/colorText"
-                android:layout_weight="5"
-                />
-        </LinearLayout>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:text="Connexion avec Facebook"
-            android:textColor="@color/colorPrimary"
-            android:background="@drawable/row_background_blue_button"
-            android:textAllCaps="false"
-            android:id="@+id/btnFacebookLogin"
-            />
+
     </LinearLayout>
 </LinearLayout>

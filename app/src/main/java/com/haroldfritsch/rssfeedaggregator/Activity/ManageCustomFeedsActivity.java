@@ -199,7 +199,6 @@ public class ManageCustomFeedsActivity extends AppCompatActivity implements View
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(ManageCustomFeedsActivity.this, "supprimer", Toast.LENGTH_SHORT).show();
                         Ion.with(ManageCustomFeedsActivity.this)
                                 .load("DELETE", ApiHelper.BASE_URL + ApiHelper.USER_FEED_ENDPOINT + "/" + source.getId())
                                 .setHeader("RSS-TOKEN", TokenHelper.getInstance().getToken(ManageCustomFeedsActivity.this).getAccessToken())

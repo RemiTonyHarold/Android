@@ -98,7 +98,6 @@ public class NewsListActivity extends AppCompatActivity implements AdapterView.O
                         }
                     });
         } else {
-            Toast.makeText(this, "Utilisateur non connecté", Toast.LENGTH_SHORT).show();
             Ion.with(this).load(ApiHelper.BASE_URL + ApiHelper.NEWS_ENDPOINT
                     + "?timestamp=" + Long.toString(lastFetchTimestamp))
                     .as(new TypeToken<List<News>>(){})
@@ -201,11 +200,9 @@ public class NewsListActivity extends AppCompatActivity implements AdapterView.O
                 Log.e("filter", categories.get(which).getId());
                 newses = realm.where(News.class).equalTo("categoryId", categories.get(which).getId())
                         .findAll().sort("pubDate", Sort.DESCENDING);
-                Toast.makeText(NewsListActivity.this, "count" + newses.size(), Toast.LENGTH_SHORT).show();
                 adapter.clear();
                 adapter.addAll(newses);
                 adapter.notifyDataSetChanged();
-                Toast.makeText(NewsListActivity.this, "which:"+which, Toast.LENGTH_SHORT).show();
             }
         });
         builder.create().show();
