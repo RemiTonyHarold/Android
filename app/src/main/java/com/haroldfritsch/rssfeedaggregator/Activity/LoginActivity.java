@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             return;
                         }
                         if (result.getError() != null) {
-                            Toast.makeText(LoginActivity.this, result.getError(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Vérifiez votre saisie.", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         TokenHelper.getInstance().saveToken(LoginActivity.this, result);
@@ -177,7 +177,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             return;
                         }
                         if (result.getError() != null) {
-                            Toast.makeText(LoginActivity.this, result.getError(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Vérifiez votre saisie.", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         TokenHelper.getInstance().saveToken(LoginActivity.this, result.getToken());
